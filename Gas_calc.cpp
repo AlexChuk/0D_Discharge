@@ -63,7 +63,7 @@ void gas_TP_calc(double Ni[],double Tin,double Pin,double Hin,int nt,int dot)//р
 	double ftn,Ftn,Tnn,Tn,dT,Nn;
 	Tn = Tin;//300;//Temp0;//Tin;//
 	Nn = Nin;
-	//Hin = Hin + Qel*dt;//нагрев электронами
+	Hin = Hin + Qel*dt;//нагрев электронами
 	Tnn = 0;
 	do
 	{
