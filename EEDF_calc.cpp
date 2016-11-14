@@ -704,24 +704,26 @@ void EEDF_calc(int nt,int dot)//решение уравнения Больцмана
         Te = 2.0/3.0*Ee;//[eV]
         //************************************************************
 
-        //Vdr-calculation*********************************************
-        Vm_av = 0.0;
-        for(k=0;k<NEmax;k++)
-            Vm_av += Vm[k]*Ne[k]*dEev;
-        Vm_av *= 1.0/Nel;//
-        Muel = e/me/Vm_av;
-        Vdr = Muel*E;
-        Jel = e*Nel*Vdr;//[СГС/cm2*s]
-
-        Qel = me/Mi[11]*Ee*Vm_av*Nel*1.602e-12;//[erg/cm3*s]
-        //************************************************************
-
         dTe = fabs(Te-Te0);
         nte++;
 
     }while(dTe>0.01);
 
-	//Writing_data***************************************************
+    //Vdr-calculation*********************************************
+
+    Vm_av = 0.0;
+    for(k=0;k<NEmax;k++)
+    Vm_av += Vm[k]*Ne[k]*dEev;
+    Vm_av *= 1.0/Nel;//
+    Muel = e/me/Vm_av;
+    Vdr = Muel*E;
+    Jel = e*Nel*Vdr;//[СГС/cm2*s]
+    Qel = me/Mi[11]*Ee*Vm_av*Nel*1.602e-12;//[erg/cm3*s]
+
+    //************************************************************
+
+
+    //Writing_data***************************************************
 	if(dot==Ndots)
 		EEDF_print(nt,Norm);
 
