@@ -166,10 +166,3 @@ void gas_print(int nt)//запись в файл
 
 	fclose(log);
 }
-
-//additional changes for github test
-
-//test branch for git
-
-//
-
