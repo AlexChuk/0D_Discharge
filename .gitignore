@@ -20,3 +20,4 @@
 gmon.out
 
 *.o
+/.project
