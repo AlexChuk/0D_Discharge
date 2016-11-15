@@ -4,6 +4,7 @@
 int CStype;
 int CSref[Nmax][9][CSmax],CSR[CSmax][5];
 double CS[NEmax][CSmax],Ith[CSmax],Kel[CSmax];
+double Ee,Vdr,Muel,Jel,Qel,QE;
 
 int EEDF_read_CS()//считывание сечений EEDF-процессов(возврат кол-ва реакций)
 {
@@ -709,7 +710,7 @@ void EEDF_calc(int nt,int dot)//решение уравнения Больцмана
 
     }while(dTe>0.01);
 
-    //Vdr-calculation*********************************************
+    //Vdr-calculation*************************************************
 
     Vm_av = 0.0;
     for(k=0;k<NEmax;k++)
@@ -720,7 +721,9 @@ void EEDF_calc(int nt,int dot)//решение уравнения Больцмана
     Jel = e*Nel*Vdr;//[СГС/cm2*s]
     Qel = me/Mi[11]*Ee*Vm_av*Nel*1.602e-12;//[erg/cm3*s]
 
-    //************************************************************
+    QE = E*Jel*3.14*pi*Rad*Rad; //[abs*СГС/s]
+
+    //***************************************************************
 
 
     //Writing_data***************************************************

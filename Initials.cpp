@@ -3,7 +3,7 @@
 # include "Initials.h"
 
 double Ne[NEmax],Ni[Nmax],Mi[Nmax],LJi[Nmax][2],Roi[Nmax],Xi[Nmax],Pgas,Tgas,Ngas,Rogas,Hgas;
-double E,E_N,Nel,Ee,Te,Tv,Vdr,Muel,Jel,Qel;
+double E,E_N,Nel,Te,Tv;
 double Rad;
 double tau,dt,dte;
 double Emax,dE,dEev;

@@ -59,11 +59,10 @@ void gas_TP_calc(double Ni[],double Tin,double Pin,double Hin,int nt,int dot)//р
         Xi[n] = Ni[n]/Nin;
 
 	//Расчёт температуры_методом Ньютона
-	double Hi,Cpi;
+	double Hi,Cpi,Cp;
 	double ftn,Ftn,Tnn,Tn,dT,Nn;
 	Tn = Tin;//300;//Temp0;//Tin;//
-	Nn = Nin;
-	Hin = Hin + Qel*dt;//нагрев электронами
+	/*Nn = Nin;
 	Tnn = 0;
 	do
 	{
@@ -83,6 +82,8 @@ void gas_TP_calc(double Ni[],double Tin,double Pin,double Hin,int nt,int dot)//р
 
 			Ftn += Xi[n]*Nn*Mi[n]*Hi;//Roi1[n]*Hi;//Xi[n]*Hi;//
 			ftn += Xi[n]*Nn*Mi[n]*Cpi;//Roi1[n]*Cpi;//Xi[n]*Cpi;//
+
+
 		}
 
 		Ftn = Ftn - Hin;
@@ -91,8 +92,19 @@ void gas_TP_calc(double Ni[],double Tin,double Pin,double Hin,int nt,int dot)//р
 
 		dT = fabs(Tnn-Tn);
 
+        Cp = ftn;
 	}while(dT>1.0e-2);
 	Tout = Tnn;//Tin;///Tin;///Tnn;//////300;
+	*/
+    Tout = Tin;
+
+    //нагрев электронами в упругих соударениях + нагрев газа полем
+    Cp = 0.0;
+    gas_HCpSi_calc(Tout);
+    for(n=1;n<N;n++)
+        Cp += Xi[n]*Nin*Mi[n]*HCpSi[1][n];
+    Tout += (Qel+QE)*dt/Cp;
+
     //Tout = Tin;
 
 	//Isobaric process**************************************
