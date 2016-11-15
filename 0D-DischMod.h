@@ -28,6 +28,7 @@ extern int N,Nt,Nte,Nchem,Nedf,Ndots,NR;
 
 extern double Ne[NEmax],Ni[Nmax],Mi[Nmax],LJi[Nmax][2],Roi[Nmax],Pgas,Tgas,Ngas,Hgas,Rogas;
 extern double E,E_N,Nel,Ee,Te,Tv,Vdr,Muel,Jel,Qel,QE;
+extern double dTgas,dTe,dNel;
 extern double Rad;
 extern double tau,dt,dte;
 extern double Emax,dE,dEev;

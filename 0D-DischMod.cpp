@@ -21,8 +21,11 @@ int main(void)
 	{
 		dot += 1;
 
-        EEDF_calc(nt,dot);
-        EEDF_const_calc();
+        if(fabs(Nel-Nel0)<2.0)
+        {
+            EEDF_calc(nt,dot);
+            EEDF_const_calc();
+        }
 
 		chem_const(Te,Tgas,nt,dot);
 		chem_runge_kutta4(Ni,nt,dot);

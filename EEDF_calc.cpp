@@ -457,7 +457,7 @@ int EEDF_read_CS()//считывание сечений EEDF-процессов(возврат кол-ва реакций)
 void EEDF_calc(int nt,int dot)//решение уравнения Больцмана
 {
 	int k,n,m,s,j,J,Jmax,nte;
-    double dTe,Te0,Norm;
+    double Te0,Norm;
 
 	double A,B,C,F,den;
 	double Vm[NEmax],Vmi[NEmax],D[NEmax],Vm_av;

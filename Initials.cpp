@@ -4,6 +4,7 @@
 
 double Ne[NEmax],Ni[Nmax],Mi[Nmax],LJi[Nmax][2],Roi[Nmax],Xi[Nmax],Pgas,Tgas,Ngas,Rogas,Hgas;
 double E,E_N,Nel,Te,Tv;
+double dTgas,dTe,dNel;
 double Rad;
 double tau,dt,dte;
 double Emax,dE,dEev;

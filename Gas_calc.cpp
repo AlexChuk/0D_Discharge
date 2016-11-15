@@ -62,7 +62,7 @@ void gas_TP_calc(double Ni[],double Tin,double Pin,double Hin,int nt,int dot)//р
 	double Hi,Cpi,Cp;
 	double ftn,Ftn,Tnn,Tn,dT,Nn;
 	Tn = Tin;//300;//Temp0;//Tin;//
-	/*Nn = Nin;
+	Nn = Nin;
 	Tnn = 0;
 	do
 	{
@@ -95,14 +95,13 @@ void gas_TP_calc(double Ni[],double Tin,double Pin,double Hin,int nt,int dot)//р
         Cp = ftn;
 	}while(dT>1.0e-2);
 	Tout = Tnn;//Tin;///Tin;///Tnn;//////300;
-	*/
-    Tout = Tin;
+    //Tout = Tin;
 
     //нагрев электронами в упругих соударениях + нагрев газа полем
-    Cp = 0.0;
+    /*Cp = 0.0;
     gas_HCpSi_calc(Tout);
     for(n=1;n<N;n++)
-        Cp += Xi[n]*Nin*Mi[n]*HCpSi[1][n];
+        Cp += Xi[n]*Nin*Mi[n]*HCpSi[1][n];*/
     Tout += (Qel+QE)*dt/Cp;
 
     //Tout = Tin;
