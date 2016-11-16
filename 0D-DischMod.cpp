@@ -17,17 +17,19 @@ int main(void)
 	int nt,dot;
 	Nt = int(tau/dt);
 	dot = 0;
-	for(nt=0;nt<=Nt;nt++)
+
+    for(nt=0;nt<=Nt;nt++)
 	{
 		dot += 1;
 
-        if(fabs(Nel-Nel0)<2.0)
+        if((dot==Ndots) || (nt==0))//(dNel>0.1*Nel)
         {
             EEDF_calc(nt,dot);
             EEDF_const_calc();
         }
 
-		chem_const(Te,Tgas,nt,dot);
+		if((dTgas>10.0) || (dTe>0.1) || (nt==0))
+            chem_const(Te,Tgas,nt,dot);
 		chem_runge_kutta4(Ni,nt,dot);
 
 		gas_TP_calc(Ni,Tgas,Pgas,Hgas,nt,dot);

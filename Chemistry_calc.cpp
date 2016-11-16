@@ -619,6 +619,7 @@ void chem_const(double Tel,double Tch,int nt,int dot)// расчёт констант скоросте
 	double Kf;
 
 	int xRev=0;//счётчик запуска счета констант реакций с ID - Rev
+    Tel = Tel*eV_K;//[K]
 
 	for(j=0;j<Nchem;j++)
 	{
@@ -626,7 +627,6 @@ void chem_const(double Tel,double Tch,int nt,int dot)// расчёт констант скоросте
 			Kch[j] = Kel[j];
 		if(!strcmp(Rtype[j],"Te"))//запись констант реакций в виде - k*(T)^n*exp(-Ea/T), k-[см^3/с], Ea-[K]
 		{
-			Tel = Tel*eV;//[K]
 			Kf = Kchi[j][0]*pow(Tel,Kchi[j][1])*exp(-Kchi[j][2]/Tel);
 
 			Kch[j]=Kf;

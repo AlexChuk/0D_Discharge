@@ -5,7 +5,7 @@
 double Ne[NEmax],Ni[Nmax],Mi[Nmax],LJi[Nmax][2],Roi[Nmax],Xi[Nmax],Pgas,Tgas,Ngas,Rogas,Hgas;
 double E,E_N,Nel,Te,Tv;
 double dTgas,dTe,dNel;
-double Rad;
+double Rad,Tw,Lam;
 double tau,dt,dte;
 double Emax,dE,dEev;
 
@@ -41,6 +41,7 @@ void init_read()//считывание начальных данных
 	fscanf(init,"%lf%s",&E_N,&Cmt);
 	fscanf(init,"%lf%s",&Emax,&Cmt);//считывание максимума энергетич шкалы
 	fscanf(init,"%lf%s",&Rad,&Cmt);
+	fscanf(init,"%lf%s",&Tw,&Cmt);
 
 	dEev = Emax/NEmax;
 	dE = dEev*1.602e-12;//[eV]=1.602e-12[erg]
@@ -174,7 +175,7 @@ void init_print()//запись начальных данных
 		fprintf(log,"%s\t",Spec[n]);
 	fprintf(log,"\n");
 
-	fprintf(log,"%.2e\t%.1f\t%.1f\t %.2e\t %.2e\t %.2e\t %.2e\t %.1f\t %.1f\t %.2e\t",0.0,Tgas,Pgas/p0,Hgas,Ngas,Rogas,Nel/Ngas,Te*eV,Tv,Ni[8]/Ni[11]);
+	fprintf(log,"%.2e\t%.1f\t%.1f\t %.2e\t %.2e\t %.2e\t %.2e\t %.1f\t %.1f\t %.2e\t",0.0,Tgas,Pgas/p0,Hgas,Ngas,Rogas,Nel/Ngas,Te*eV_K,Tv,Ni[8]/Ni[11]);
 	for(n=0;n<N;n++)
 		fprintf(log,"%.2e\t",Ni[n]);
 	fprintf(log,"\n");

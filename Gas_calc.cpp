@@ -46,6 +46,9 @@ void gas_TP_calc(double Ni[],double Tin,double Pin,double Hin,int nt,int dot)//р
 	double Roi1[N],Xi[N];
 	double Nin,Nout,Pout,Tout,Roin,Roout,Hout;
 
+	dTgas = Tin;
+	dNel = Nel;
+
 	Nin = 0;
 	Roin = 0.0;
 	for(n=1;n<N;n++)
@@ -58,12 +61,18 @@ void gas_TP_calc(double Ni[],double Tin,double Pin,double Hin,int nt,int dot)//р
     for(n=1;n<N;n++)
         Xi[n] = Ni[n]/Nin;
 
-	//Расчёт температуры_методом Ньютона
-	double Hi,Cpi,Cp;
+    //Учет нагрева электронами в упругих соударениях + нагрев газа полем + теплопроводность на стенку трубки
+
+    Lam = 1.0e+7*(2.714+5.897e-3*Tin)*1.0e-4; //[Эрг/(с*см^2*K)]Ref. - Nuttall_JRNBS_1957 (N2)
+    Hin += (Qel)*dt - Lam*(Tin-Tw)/pow(Rad/2.4,2.0)*dt;//w/o QE
+
+    //Расчёт температуры_методом Ньютона
+	double Hi,Cpi;
 	double ftn,Ftn,Tnn,Tn,dT,Nn;
 	Tn = Tin;//300;//Temp0;//Tin;//
 	Nn = Nin;
-	Tnn = 0;
+
+	/*Tnn = Tin;
 	do
 	{
 		if(!Tnn==0)
@@ -75,14 +84,13 @@ void gas_TP_calc(double Ni[],double Tin,double Pin,double Hin,int nt,int dot)//р
 		Ftn = 0;
 		ftn = 0;
 		gas_HCpSi_calc(Tn);
-		for(n=1;n<N;n++)
+		for(n=4;n<N;n++)
 		{
 			Hi = HCpSi[0][n];//[эрг/г]
 			Cpi = HCpSi[1][n];//[эрг/г*К]
 
 			Ftn += Xi[n]*Nn*Mi[n]*Hi;//Roi1[n]*Hi;//Xi[n]*Hi;//
 			ftn += Xi[n]*Nn*Mi[n]*Cpi;//Roi1[n]*Cpi;//Xi[n]*Cpi;//
-
 
 		}
 
@@ -92,19 +100,12 @@ void gas_TP_calc(double Ni[],double Tin,double Pin,double Hin,int nt,int dot)//р
 
 		dT = fabs(Tnn-Tn);
 
-        Cp = ftn;
 	}while(dT>1.0e-2);
 	Tout = Tnn;//Tin;///Tin;///Tnn;//////300;
-    //Tout = Tin;
+    */
+    Tout = Tin;
 
-    //нагрев электронами в упругих соударениях + нагрев газа полем
-    /*Cp = 0.0;
-    gas_HCpSi_calc(Tout);
-    for(n=1;n<N;n++)
-        Cp += Xi[n]*Nin*Mi[n]*HCpSi[1][n];*/
-    Tout += (Qel+QE)*dt/Cp;
-
-    //Tout = Tin;
+    dTgas = fabs(dTgas-Tout);
 
 	//Isobaric process**************************************
 	Pout = Pin;
@@ -117,6 +118,7 @@ void gas_TP_calc(double Ni[],double Tin,double Pin,double Hin,int nt,int dot)//р
 	}
 	Ni[0] = Nout*Ni[0]/Nin;//концентрация электронов
     Nel = Ni[0];
+    dNel = fabs(dNel-Nel);
 
 	//Hout = Hin;
 
@@ -160,7 +162,7 @@ void gas_print(int nt)//запись в файл
 
 	printf("P = %.1f[Torr]\tT = %.1f[K]\tXe = %.2e\t[%s] = %.2e\n",Pgas/p0,Tgas,Nel/Ngas,Spec[5],Ni[5]);
 
-	fprintf(log,"%.2e\t%.1f\t%.1f\t %.2e\t %.2e\t %.2e\t %.2e\t %.1f\t %.1f\t %.2e\t",nt*dt,Tgas,Pgas/p0,Hgas,Ngas,Rogas,Nel/Ngas,Te*eV,Tv,Ni[8]/Ni[11]);
+	fprintf(log,"%.2e\t%.1f\t%.1f\t %.2e\t %.2e\t %.2e\t %.2e\t %.1f\t %.1f\t %.2e\t",nt*dt,Tgas,Pgas/p0,Hgas,Ngas,Rogas,Nel/Ngas,Te*eV_K,Tv,Ni[8]/Ni[11]);
 	for(n=0;n<N;n++)
 		fprintf(log,"%.2e\t",Ni[n]);
 	fprintf(log,"\n");

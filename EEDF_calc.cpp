@@ -470,6 +470,8 @@ void EEDF_calc(int nt,int dot)//решение уравнения Больцмана
 	  k=0     1     2     3     4		   k-1    k    k+1                    			   NEmax
 	*/
 
+	dTe = Te;
+
 	nte = 0;
 	do
     //for(nte=0;nte<20;nte++)
@@ -705,10 +707,11 @@ void EEDF_calc(int nt,int dot)//решение уравнения Больцмана
         Te = 2.0/3.0*Ee;//[eV]
         //************************************************************
 
-        dTe = fabs(Te-Te0);
         nte++;
 
-    }while(dTe>0.01);
+    }while(fabs(Te-Te0)>0.01);
+
+    dTe = fabs(dTe-Te);
 
     //Vdr-calculation*************************************************
 

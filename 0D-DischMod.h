@@ -20,7 +20,7 @@ const double
 	E0 = 300,//E[В/см]=300E[абс.СГС]
 	Na = 6.022e+23,
 	kb = 1.38e-16,//[erg/K]
-	eV = 11605,//1 эВ в кельвинах К
+	eV_K = 11605,//1 эВ в кельвинах К
 	p0 = 1333.22, // коэф-т перевода Торр --> СГС [эрг/см^3]
 	cm_eV = 8065.5447;//коэф-т перевода cm-1 --> эВ
 
@@ -29,7 +29,7 @@ extern int N,Nt,Nte,Nchem,Nedf,Ndots,NR;
 extern double Ne[NEmax],Ni[Nmax],Mi[Nmax],LJi[Nmax][2],Roi[Nmax],Pgas,Tgas,Ngas,Hgas,Rogas;
 extern double E,E_N,Nel,Ee,Te,Tv,Vdr,Muel,Jel,Qel,QE;
 extern double dTgas,dTe,dNel;
-extern double Rad;
+extern double Rad,Tw,Lam;
 extern double tau,dt,dte;
 extern double Emax,dE,dEev;
 extern double CXi[Nmax][2][8];
